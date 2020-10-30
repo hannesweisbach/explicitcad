@@ -2,7 +2,7 @@
 , lib
 , mkDerivation
 , fetchFromGitHub
-, qmake
+, cmake
 , qtbase
 , qscintilla
 , haskellPackages }:
@@ -24,14 +24,14 @@ mkDerivation rec {
     (qscintilla.override { withQt5 = true; })
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [ cmake ];
 
   qtWrapperArgs =
     [ "--prefix" "PATH" ":" (lib.makeBinPath [ haskellPackages.implicit ] ) ];
 
   preFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # wrapQtAppsHook is broken for macOS 😂 - do it manually
-    wrapQtApp $out/bin/explicitcad.app/Contents/MacOS/explicitcad
+    wrapQtApp $out/bin/ExplicitCAD.app/Contents/MacOS/ExplicitCAD
   '';
 
   meta = with stdenv.lib; {
