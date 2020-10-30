@@ -47,7 +47,7 @@ jobs:
 
     - name: Install QScintilla
       shell: bash
-      if: (!startsWith(runner.os, 'Windows')) || steps.cache-qscintilla-windows.outputs.cache-hit == 'false'
+      if: matrix.build == 'native' && ((!startsWith(runner.os, 'Windows')) || steps.cache-qscintilla-windows.outputs.cache-hit == 'false')
       run: |
         if [[ $RUNNER_OS == "macOS" ]]; then
           brew install qscintilla2
@@ -90,6 +90,7 @@ jobs:
       run: cmake --build . --config $BUILD_TYPE
 
     - name: Install
+      if: matrix.build == 'native'
       working-directory: ${{runner.workspace}}/build
       shell: bash
       run: DESTDIR="${{runner.workspace}}/install" cmake --install . --config $BUILD_TYPE
