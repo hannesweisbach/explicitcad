@@ -29,10 +29,10 @@ mkDerivation rec {
   qtWrapperArgs =
     [ "--prefix" "PATH" ":" (lib.makeBinPath [ haskellPackages.implicit ] ) ];
 
-  preFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # wrapQtAppsHook is broken for macOS 😂 - do it manually
-    wrapQtApp $out/bin/ExplicitCAD.app/Contents/MacOS/ExplicitCAD
-  '';
+#  preFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
+#    # wrapQtAppsHook is broken for macOS 😂 - do it manually
+#    wrapQtApp $out/bin/ExplicitCAD.app/Contents/MacOS/ExplicitCAD
+#  '';
 
   meta = with stdenv.lib; {
     description = "A graphical user interface for implicitcad";
